@@ -1,11 +1,11 @@
 import 'express-async-errors';
 import 'dotenv/config';
-import express from "express";
+import express, { Application } from "express";
 import cors from 'cors';
 
 import { GenerateBarCodeController } from "./controller/GenerateBarCodeController";
 
-const app = express();
+const app: Application = express();
 const port = process.env.APP_PORT;
 
 const generateBarCodeController = new GenerateBarCodeController();
