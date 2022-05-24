@@ -1,6 +1,6 @@
 import 'express-async-errors';
 import 'dotenv/config';
-import express, { Application } from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import cors from 'cors';
 
 import { GenerateBarCodeController } from "./controller/GenerateBarCodeController";
@@ -19,7 +19,7 @@ app.get('/', (req,res) => {
   res.send({msg: "Criar código de barra para operadores fiscais."})
 });
 
-app.use((err, req, res, next) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if(err instanceof Error) {
     console.log(err);
     return res.status(400).send({ erro: err.message });
