@@ -1,3 +1,5 @@
+import { ValidateUserExistsService } from "./ValidateUserExistsService";
+
 interface IDataRequest{
   store: string,
   operator: string
@@ -7,6 +9,13 @@ class GenerateBarCodeService {
   async execute({store, operator}: IDataRequest){
     if(!store || !operator){
       throw new Error("Invalid Data Send. Check store or operator values.");
+    }
+
+    const validateUserExists = new ValidateUserExistsService();
+    const operatorExists = await validateUserExists.execute({store, operator});
+
+    if (!operatorExists){
+      throw new Error("User data is invalid. Check store or operator values.");
     }
 
     // Padrao de geração do cod de barra 10LLLCCCCCC0D
